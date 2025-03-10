@@ -19,27 +19,8 @@ const App = () => {
    <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
    </svg>
 </button>
-<SidebarAside/>
-<div className="p-4 sm:ml-64">
-   <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-      <Routes>
-    <Route path="pages1" element={<Pages2/>}/>
-    <Route path="pages2" element={<Skiils/>}/>
-    <Route path="contact" element={<Contact/>}/>
-    <Route path="contact" element={<Contact/>}/>
-      </Routes>
-      <ChatPopup/>
-   </div>
-</div>
-    </div>
-  )
-}
-
-export default App
-
-const SidebarAside = () => {
-   return (
-      <aside id="default-sidebar" className=" fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+{Open? null : null}
+<aside id="default-sidebar" className=" fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
    <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-slate-800">
     <div className="flex flex-col items-center w-full p-2 flex justify-evenly gap-3">
       <Link to="/">
@@ -99,5 +80,19 @@ Hi, i'am <ColourfulText text="Rayhan Dita" />
    </div>
 </aside>
 
-   )
+<div className="p-4 sm:ml-64">
+   <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+      <Routes>
+    <Route path="pages1" element={<Pages2/>}/>
+    <Route path="pages2" element={<Skiils/>}/>
+    <Route path="contact" element={<Contact/>}/>
+    <Route path="contact" element={<Contact/>}/>
+      </Routes>
+      <ChatPopup/>
+   </div>
+</div>
+    </div>
+  )
 }
+
+export default App
