@@ -64,8 +64,8 @@ const technologies: Technology[] = [
 ];
 
 const Pages3 = () => {
-  const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
-  const [skillFilter, setSkillFilter] = useState<SkillLevel | null>(null);
+  const [categoryFilter] = useState<string | null>(null);
+  const [skillFilter] = useState<SkillLevel | null>(null);
   const [ShowSkill, setShowSkill] = useState<boolean>(false)
 
   const filteredTechnologies = technologies.filter(
