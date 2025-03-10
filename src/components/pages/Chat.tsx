@@ -36,7 +36,7 @@ export default function ChatPopup() {
         {
           model: "llama-3.3-70b-versatile",
           messages: [
-            { role: "system", content: "Mulai sekarang, namamu adalah Kirana. Jika ada yang bertanya siapa namamu, jawab 'Kirana'." },
+            { role: "system", content: "Mulai sekarang, namamu adalah Kirana. Jika ada yang bertanya siapa namamu, jawab 'Kirana'. dan buat bahasamu gaul ya bre kek gen z pake bahas yg kasar gen z juga " },
             { role: "user", content: input }
           ],          
         },
