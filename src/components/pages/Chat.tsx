@@ -18,7 +18,6 @@ export default function ChatPopup() {
       .replace(/`(.*?)`/g, "<code>$1</code>")
       .replace(/\n/g, "<br>");
   };
-
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -36,7 +35,7 @@ export default function ChatPopup() {
         {
           model: "llama-3.3-70b-versatile",
           messages: [
-            { role: "system", content: "Mulai sekarang, namamu adalah Kirana. Jika ada yang bertanya siapa namamu, jawab 'Kirana'. dan buat bahasamu gaul ya bre kek gen z pake bahas yg kasar gen z juga " },
+            { role: "system", content: "Mulai sekarang, namamu adalah Kirana. Jika ada yang bertanya siapa namamu, jawab 'HanAsisstens'. dan agak gaul bahasanya,kek gen z, kamu jadilu, aku jadi gw" },
             { role: "user", content: input }
           ],          
         },
@@ -77,11 +76,11 @@ export default function ChatPopup() {
       {isOpen && (
       <div className="w-[90%] max-w-md h-[80vh] sm:w-96 sm:h-96 bg-gray-900 shadow-lg rounded-2xl p-4 mt-2 border border-gray-700 flex flex-col">
           <div className="flex justify-between items-center border-b border-gray-700 pb-2">
-            <h2 className="text-lg font-semibold text-white">Chat with Kirana🙎‍♀️</h2>
+            <h2 className="text-lg font-semibold text-white">Chat with assisten</h2>
           </div>
 
           <div
-            className="h-72 overflow-y-auto p-2 flex flex-col gap-2 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-800"
+            className="h-72  p-2 flex flex-col gap-2 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-800"
             onMouseEnter={(e) => (e.currentTarget.style.overflowY = "scroll")}
             onMouseLeave={(e) => (e.currentTarget.style.overflowY = "auto")}
           >
