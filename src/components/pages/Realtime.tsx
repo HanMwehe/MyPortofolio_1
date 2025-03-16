@@ -1,5 +1,5 @@
 "use client";
-
+import { useChat } from "../../context/ChatContext";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
@@ -15,7 +15,7 @@ const socket = io("https://compassionate-bravery-production.up.railway.app/", {
 );
 
 export default function ChatApp() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const { messages, setMessages, addMessage } = useChat(); // ganti useState
   const [text, setText] = useState("");
   const [username, setUsername] = useState<string | null>(
     typeof window !== "undefined" ? localStorage.getItem("username") : null
@@ -29,8 +29,8 @@ export default function ChatApp() {
     });
 
     socket.on("message", (message: Message) => {
-      setMessages((prev) => [...prev, message]);
-    });
+      addMessage(message);
+    });    
 
     return () => {
       socket.off("message");
