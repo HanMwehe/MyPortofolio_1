@@ -1,5 +1,5 @@
-// src/context/ChatContext.tsx
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { io } from "socket.io-client";
 
 interface Message {
   username: string;
@@ -9,30 +9,49 @@ interface Message {
 
 interface ChatContextType {
   messages: Message[];
-  setMessages: (msgs: Message[]) => void;
-  addMessage: (msg: Message) => void;
+  sendMessage: (msg: { username: string; text: string }) => void;
 }
 
-const ChatContext = createContext<ChatContextType | undefined>(undefined);
+const ChatContext = createContext<ChatContextType | null>(null);
+
+const socket = io("https://compassionate-bravery-production.up.railway.app/", {
+  transports: ["websocket"],
+});
 
 export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [messages, setMessages] = useState<Message[]>([]);
 
-  const addMessage = (msg: Message) => {
-    setMessages((prev) => [...prev, msg]);
+  useEffect(() => {
+    // Load pesan lama
+    socket.on("loadMessages", (oldMessages: Message[]) => {
+      setMessages(oldMessages);
+    });
+
+    // Pesan baru real-time
+    socket.on("message", (msg: Message) => {
+      setMessages((prev) => [...prev, msg]);
+    });
+
+    return () => {
+      socket.off("loadMessages");
+      socket.off("message");
+    };
+  }, []);
+
+  const sendMessage = ({ username, text }: { username: string; text: string }) => {
+    const msg: Message = { username, text, timestamp: new Date().toISOString() };
+    socket.emit("sendMessage", msg);
   };
 
   return (
-    <ChatContext.Provider value={{ messages, setMessages, addMessage }}>
+    <ChatContext.Provider value={{ messages, sendMessage }}>
       {children}
     </ChatContext.Provider>
   );
 };
 
 export const useChat = () => {
-  const context = useContext(ChatContext);
-  if (!context) {
-    throw new Error("useChat must be used within a ChatProvider");
-  }
-  return context;
+  const ctx = useContext(ChatContext);
+  if (!ctx) throw new Error("useChat must be used inside ChatProvider");
+  return ctx;
 };

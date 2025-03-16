@@ -1,21 +1,9 @@
 "use client";
 import { useChat } from "../../context/ChatContext";
 import { useEffect, useRef, useState } from "react";
-import { io } from "socket.io-client";
-
-interface Message {
-  username: string;
-  text: string;
-  timestamp?: string;
-}
-
-const socket = io("https://compassionate-bravery-production.up.railway.app/", {
-  transports : ["websocket"]
-}
-);
 
 export default function ChatApp() {
-  const { messages, setMessages, addMessage } = useChat(); // ganti useState
+  const { messages, sendMessage } = useChat();
   const [text, setText] = useState("");
   const [username, setUsername] = useState<string | null>(
     typeof window !== "undefined" ? localStorage.getItem("username") : null
@@ -23,24 +11,9 @@ export default function ChatApp() {
   const [inputUsername, setInputUsername] = useState("");
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    socket.on("loadMessages", (oldMessages: Message[]) => {
-      setMessages(oldMessages);
-    });
-
-    socket.on("message", (message: Message) => {
-      addMessage(message);
-    });    
-
-    return () => {
-      socket.off("message");
-      socket.off("loadMessages");
-    };
-  }, []);
-
-  const sendMessage = () => {
+  const handleSend = () => {
     if (!text.trim() || !username) return;
-    socket.emit("sendMessage", { username, text });
+    sendMessage({ username, text });
     setText("");
   };
 
@@ -101,11 +74,11 @@ export default function ChatApp() {
               placeholder="Type a message..."
               value={text}
               onChange={(e) => setText(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+              onKeyDown={(e) => e.key === "Enter" && handleSend()}
             />
             <button
               className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg"
-              onClick={sendMessage}
+              onClick={handleSend}
             >
               Send
             </button>
