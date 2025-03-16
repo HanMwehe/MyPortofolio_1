@@ -1,6 +1,8 @@
 "use client";
 import { useChat } from "../../context/ChatContext";
 import { useEffect, useRef, useState } from "react";
+import { IoSend } from "react-icons/io5";
+import dayjs from "dayjs";
 
 export default function ChatApp() {
   const { messages, sendMessage } = useChat();
@@ -13,10 +15,9 @@ export default function ChatApp() {
 
   const handleSend = () => {
     if (!text.trim() || !username) return;
-    sendMessage({ username, text });
+    sendMessage({ username, text }); // HAPUS timestamp dari sini
     setText("");
-  };
-
+  };  
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -28,24 +29,24 @@ export default function ChatApp() {
   };
 
   return (
-    <div className="flex flex-col h-screen max-w-lg mx-auto p-4 bg-gray-900 text-white border border-gray-700 rounded-lg">
+    <div className="flex flex-col h-screen w-full max-w-3xl mx-auto p-4 bg-gray-900 text-white border border-gray-700 rounded-lg">
       {/* Header */}
-      <div className="text-center font-bold text-lg border-b border-gray-700 pb-2 mb-2">
+      <div className="text-center font-bold text-xl border-b border-gray-700 pb-3 mb-3">
         Real-time Chat
       </div>
-
+  
       {/* Username Input */}
       {!username ? (
-        <div className="flex flex-col items-center justify-center gap-2">
+        <div className="flex flex-col items-center justify-center gap-4 flex-1">
           <input
             type="text"
-            className="p-2 bg-gray-800 text-white rounded-lg outline-none"
+            className="w-full p-3 bg-gray-800 text-white rounded-lg outline-none"
             placeholder="Enter your name..."
             value={inputUsername}
             onChange={(e) => setInputUsername(e.target.value)}
           />
           <button
-            className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg"
+            className="w-full bg-blue-500 hover:bg-blue-600 py-3 rounded-lg font-semibold"
             onClick={handleSetUsername}
           >
             Set Username
@@ -54,37 +55,42 @@ export default function ChatApp() {
       ) : (
         <>
           {/* Chat Messages */}
-          <div className="flex-1 overflow-y-auto space-y-2 p-2">
+          <div className="flex-1 overflow-y-auto space-y-3 p-1">
             {messages.map((msg, index) => (
-              <div key={index} className="flex flex-col">
-                <span className="text-sm text-gray-400">{msg.username}</span>
-                <div className="bg-gray-800 p-2 rounded-lg max-w-xs">
+              <div key={index} className="flex flex-col relative group">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-sm text-gray-400">{msg.username}</span>
+                </div>
+                <div className="bg-gray-800 p-3 rounded-xl max-w-sm relative">
                   {msg.text}
+                  <span className="absolute text-[10px] text-gray-300 bottom-1 right-3 opacity-70 group-hover:opacity-100 transition">
+                    {dayjs(msg.timestamp).format("HH:mm")}
+                  </span>
                 </div>
               </div>
             ))}
             <div ref={chatEndRef} />
           </div>
-
+  
           {/* Chat Input */}
-          <div className="flex items-center gap-2 border-t border-gray-700 pt-2">
+          <div className="flex items-center gap-2 border-t border-gray-700 pt-3">
             <input
               type="text"
-              className="flex-1 p-2 bg-gray-800 text-white rounded-lg outline-none"
+              className="flex-1 p-3 bg-gray-800 text-white rounded-lg outline-none"
               placeholder="Type a message..."
               value={text}
               onChange={(e) => setText(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
             />
             <button
-              className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg"
+              className="bg-blue-500 hover:bg-blue-600 p-3 rounded-lg"
               onClick={handleSend}
             >
-              Send
+              <IoSend size={22} />
             </button>
           </div>
         </>
       )}
     </div>
-  );
+  );  
 }

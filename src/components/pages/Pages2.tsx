@@ -2,7 +2,7 @@ import "../assets/font.css"
 import TiltedCard from '../ux/Card'
 const Pages2 = () => {
   return (
-    <div className='flex h-auto'>
+    <div className='flex h-screen'>
         <div className='flex flex-col-reverse justify-evenly md:flex-row-reverse items-center gap-10'>
             <div className='md:w-[50%]'>
                 <h1 className='font-[Monserrat]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam sit saepe ab quae similique iste veritatis officiis, nisi a. Quaerat, est autem! Impedit veritatis itaque amet deserunt mollitia suscipit!</h1>

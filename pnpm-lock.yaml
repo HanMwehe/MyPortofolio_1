@@ -26,6 +26,9 @@ importers:
       daisyui:
         specifier: ^5.0.0
         version: 5.0.0
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
       framer-motion:
         specifier: ^12.4.10
         version: 12.4.10(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1480,6 +1483,9 @@ packages:
   data-uri-to-buffer@3.0.1:
     resolution: {integrity: sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==}
     engines: {node: '>= 6'}
+
+  dayjs@1.11.13:
+    resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
 
   debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -4843,6 +4849,8 @@ snapshots:
   daisyui@5.0.0: {}
 
   data-uri-to-buffer@3.0.1: {}
+
+  dayjs@1.11.13: {}
 
   debug@2.6.9:
     dependencies:
