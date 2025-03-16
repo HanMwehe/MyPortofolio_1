@@ -10,6 +10,7 @@ import { FaX } from "react-icons/fa6";
 import { useState } from "react";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import Realtime from "./components/pages/Realtime";
+import AllPages from "./components/pages/AllPages";
 const App = () => {
    const [Open, setOpen] = useState<boolean>(false);
    const containerRef = useRef<HTMLDivElement>(null);
@@ -102,8 +103,8 @@ Hi, i'am <ColourfulText text="Rayhan Dita" />
    <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
       <Routes>
     <Route path="pages1" element={<Pages2/>}/>
+    <Route path="/" element={<AllPages/>}/>
     <Route path="pages2" element={<Skiils/>}/>
-    <Route path="contact" element={<Contact/>}/>
     <Route path="contact" element={<Contact/>}/>
     <Route path="ChatAll" element={<Realtime/>}/>
       </Routes>
