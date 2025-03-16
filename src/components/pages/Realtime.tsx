@@ -9,7 +9,10 @@ interface Message {
   timestamp?: string;
 }
 
-const socket = io("http://localhost:5003");
+const socket = io("https://compassionate-bravery-production.up.railway.app/", {
+  transports : ["websocket"]
+}
+);
 
 export default function ChatApp() {
   const [messages, setMessages] = useState<Message[]>([]);
