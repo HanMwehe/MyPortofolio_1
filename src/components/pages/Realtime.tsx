@@ -4,7 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { IoSend } from "react-icons/io5";
 import dayjs from "dayjs";
 
+const colors = [
+  "bg-blue-600",
+  "bg-green-600",
+  "bg-purple-600"
+]
+
 export default function ChatApp() {
+  const [userColors, setUserColors] = useState<{ [key: string]: string }>({});
   const { messages, sendMessage } = useChat();
   const [text, setText] = useState("");
   const [username, setUsername] = useState<string | null>(
@@ -18,6 +25,16 @@ export default function ChatApp() {
     sendMessage({ username, text }); // HAPUS timestamp dari sini
     setText("");
   };  
+  useEffect(() => {
+    const newColors = { ...userColors };
+    messages.forEach((msg) => {
+      if (!newColors[msg.username]) {
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        newColors[msg.username] = randomColor;
+      }
+    });
+    setUserColors(newColors);
+  }, [messages]);  
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -61,7 +78,7 @@ export default function ChatApp() {
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-sm text-gray-400">{msg.username}</span>
                 </div>
-                <div className="bg-gray-800 p-3 rounded-xl max-w-sm relative">
+                <div className={`${userColors[msg.username] || "bg-gray-800"} p-3 rounded-xl max-w-sm relative`}>
                   {msg.text}
                   <span className="absolute text-[10px] text-gray-300 bottom-1 right-3 opacity-70 group-hover:opacity-100 transition">
                     {dayjs(msg.timestamp).format("HH:mm")}
