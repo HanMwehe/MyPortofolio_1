@@ -78,12 +78,22 @@ export default function ChatApp() {
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-sm text-gray-400">{msg.username}</span>
                 </div>
-                <div className={`${userColors[msg.username] || "bg-gray-800"} p-3 rounded-xl max-w-sm relative`}>
-                  {msg.text}
-                  <span className="absolute text-[10px] text-gray-300 bottom-1 right-3 opacity-70 group-hover:opacity-100 transition">
-                    {dayjs(msg.timestamp).format("HH:mm")}
-                  </span>
-                </div>
+                <div
+  className={`
+    ${
+      msg.username === "admin"
+        ? "bg-blue-600 text-white"
+        : "bg-slate-700 text-white"
+    } 
+    p-3 max-w-sm relative 
+    rounded-tl-2xl rounded-tr-2xl rounded-br-2xl
+  `}
+>
+  {msg.text}
+  <span className="absolute text-[10px] text-gray-500 bottom-1 right-3 opacity-70 group-hover:opacity-100 transition">
+    {dayjs(msg.timestamp).format("HH:mm")}
+  </span>
+</div>
               </div>
             ))}
             <div ref={chatEndRef} />
